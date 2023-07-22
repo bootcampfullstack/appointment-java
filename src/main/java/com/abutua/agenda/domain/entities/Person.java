@@ -25,6 +25,13 @@ public class Person implements Serializable{
     @Column(length = 20)
     private String phone;
     
+    public Person() {}
+
+    public Person(String name, String phone) {
+        this.name = name;
+        this.phone = phone;
+    }
+
     public Long getId() {
         return id;
     }
