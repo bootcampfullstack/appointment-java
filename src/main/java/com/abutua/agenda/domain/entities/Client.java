@@ -26,6 +26,10 @@ public class Client extends Person {
         this.dateOfBirth = dateOfBirth;
     }
 
+    public Client(Long id) {
+        super(id);
+    }
+
     public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }

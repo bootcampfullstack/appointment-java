@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+import com.abutua.agenda.domain.validation.AppointmentTypeValidation;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -53,6 +55,7 @@ public class Appointment implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "APPOINTMENT_TYPE_ID", nullable = false)
+    @AppointmentTypeValidation
     private AppointmentType appointmentType;
     
     public Long getId() {

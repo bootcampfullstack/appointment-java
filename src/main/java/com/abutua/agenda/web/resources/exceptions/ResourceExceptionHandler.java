@@ -8,6 +8,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import com.abutua.agenda.domain.services.exceptions.ConstrainsBusinessException;
 import com.abutua.agenda.domain.services.exceptions.DatabaseException;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -15,6 +16,28 @@ import jakarta.servlet.http.HttpServletRequest;
 
 @ControllerAdvice
 public class ResourceExceptionHandler {
+
+
+
+    @ExceptionHandler(ConstrainsBusinessException.class)
+    public ResponseEntity<ValidationErrors> validationBusinessException(ConstrainsBusinessException exception, HttpServletRequest request){
+
+        ValidationErrors error = new ValidationErrors();
+
+        HttpStatus status = HttpStatus.UNPROCESSABLE_ENTITY;
+
+        error.setError("Validation Bussiness Error");
+        error.setMessage(exception.getMessage());
+        error.setPath(request.getRequestURI());
+        error.setStatus(status.value());
+        error.setTimeStamp(Instant.now());
+
+        for(var v: exception.getViolations()){
+            error.addError(v.getMessage());
+        }
+        
+        return ResponseEntity.status(status).body(error);
+    }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ValidationErrors> validationException(MethodArgumentNotValidException exception, HttpServletRequest request){
