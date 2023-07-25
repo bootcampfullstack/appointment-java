@@ -33,6 +33,13 @@ public class Area implements Serializable {
     @OneToMany(mappedBy = "area")
     private List<Appointment> appointments = new ArrayList<>();
 
+    public Area() {
+    }
+
+    public Area(Integer id) {
+        this.id = id;
+    }
+
     public List<Appointment> getAppointments() {
         return appointments;
     }
