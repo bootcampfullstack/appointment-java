@@ -37,6 +37,13 @@ public class Professional extends Person {
     @OneToMany(mappedBy = "professional")
     private List<Appointment> appointments = new ArrayList<>();
 
+    public Professional() {
+
+    }
+    public Professional(Long id) {
+        super(id);
+    }
+
     public List<Appointment> getAppointments() {
         return appointments;
     }
