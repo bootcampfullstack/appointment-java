@@ -1,9 +1,11 @@
 package com.abutua.agenda.web.resources.exceptions;
 
 import java.time.Instant;
+import java.time.format.DateTimeParseException;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -17,8 +19,28 @@ import jakarta.servlet.http.HttpServletRequest;
 @ControllerAdvice
 public class ResourceExceptionHandler {
 
+
+
+    @ExceptionHandler(DateTimeParseException.class)
+    public ResponseEntity<StandardError> dateParseException(DateTimeParseException exception, HttpServletRequest request) {
+
+        StandardError error = new StandardError();
+
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+
+        error.setError("Parse Date Exception");
+        error.setMessage("Formato de data inválido. Utilize: 'yyyy-MM-dd'");
+        error.setPath(request.getRequestURI());
+        error.setStatus(status.value());
+        error.setTimeStamp(Instant.now());
+
+        return ResponseEntity.status(status).body(error);
+    }
+
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ValidationErrors> validationException(MethodArgumentNotValidException exception, HttpServletRequest request){
+    public ResponseEntity<ValidationErrors> validationException(MethodArgumentNotValidException exception,
+            HttpServletRequest request) {
 
         ValidationErrors error = new ValidationErrors();
 
@@ -31,14 +53,14 @@ public class ResourceExceptionHandler {
         error.setTimeStamp(Instant.now());
 
         exception.getBindingResult()
-                 .getFieldErrors()
-                 .forEach( e -> error.addError(e.getDefaultMessage()));
-        
+                .getFieldErrors()
+                .forEach(e -> error.addError(e.getDefaultMessage()));
+
         return ResponseEntity.status(status).body(error);
     }
 
     @ExceptionHandler(DatabaseException.class)
-    public ResponseEntity<StandardError> databaseException(DatabaseException exception, HttpServletRequest request){
+    public ResponseEntity<StandardError> databaseException(DatabaseException exception, HttpServletRequest request) {
 
         StandardError error = new StandardError();
 
@@ -54,7 +76,7 @@ public class ResourceExceptionHandler {
     }
 
     @ExceptionHandler(BusinessException.class)
-    public ResponseEntity<StandardError> businessException(BusinessException exception, HttpServletRequest request){
+    public ResponseEntity<StandardError> businessException(BusinessException exception, HttpServletRequest request) {
 
         StandardError error = new StandardError();
 
@@ -69,9 +91,9 @@ public class ResourceExceptionHandler {
         return ResponseEntity.status(status).body(error);
     }
 
-    
     @ExceptionHandler(EntityNotFoundException.class)
-    public ResponseEntity<StandardError> entityNotFoundException(EntityNotFoundException exception, HttpServletRequest request){
+    public ResponseEntity<StandardError> entityNotFoundException(EntityNotFoundException exception,
+            HttpServletRequest request) {
 
         StandardError error = new StandardError();
 
@@ -85,5 +107,5 @@ public class ResourceExceptionHandler {
 
         return ResponseEntity.status(status).body(error);
     }
-    
+
 }

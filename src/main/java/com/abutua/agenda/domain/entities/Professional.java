@@ -30,8 +30,7 @@ public class Professional extends Person {
     )
     private Set<Area> areas = new HashSet<Area>();
 
-    @OneToMany
-    @JoinColumn(name ="PROFESSIONAL_ID")
+    @OneToMany(mappedBy = "professional")
     private List<WorkScheduleItem> workScheduleItens = new ArrayList<>();
 
     @OneToMany(mappedBy = "professional")
