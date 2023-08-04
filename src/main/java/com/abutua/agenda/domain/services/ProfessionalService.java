@@ -31,7 +31,7 @@ public class ProfessionalService {
 
     public List<TimeSlotResponse> getAvailabilityTimesFromProfessional(long professionalId, LocalDate date) {
         var professional = getProfessional(professionalId);
-        var timeSlots = this.searchProfessionalAvailabiltyTimesUseCase.executeUseCase(professional, date);
+        var timeSlots = this.searchProfessionalAvailabiltyTimesUseCase.executeUseCase(professional.getId(), date);
 
         return timeSlots.stream().map(ts -> TimeSlotMapper.toTimeSlotResponseDTO(ts)).collect(Collectors.toList());
     }
