@@ -88,6 +88,7 @@ public class CreateAppointmentUseCase {
             }
         }
     }
+    
 
     private void checkProfessionalCanCreateAppointmentAtDateAndTimeOrThrowsException(Professional professional,
             Appointment appointment) {
