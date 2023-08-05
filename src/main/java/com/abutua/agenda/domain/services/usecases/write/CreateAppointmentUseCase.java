@@ -70,6 +70,8 @@ public class CreateAppointmentUseCase {
         return this.appointmentRepository.save(appointment);
     }
 
+
+    
     private void checkProfessionalHasAvailableScheduleOrThorwsException(Professional professional,
             Appointment appointment) {
         var timeSlots = this.searchProfessionalAvailabiltyTimesUseCase.executeUseCase(professional.getId(),
@@ -88,7 +90,7 @@ public class CreateAppointmentUseCase {
             }
         }
     }
-    
+
 
     private void checkProfessionalCanCreateAppointmentAtDateAndTimeOrThrowsException(Professional professional,
             Appointment appointment) {
