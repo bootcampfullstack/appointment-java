@@ -3,6 +3,7 @@ package com.abutua.agenda.domain.entities;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.UUID;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -54,7 +55,13 @@ public class Appointment implements Serializable {
     @ManyToOne
     @JoinColumn(name = "APPOINTMENT_TYPE_ID", nullable = false)
     private AppointmentType appointmentType;
-    
+
+    @Column(unique = true)
+    private UUID professionalUUID;
+
+    @Column(unique = true)
+    private UUID clientUUID;
+   
     public Long getId() {
         return id;
     }
@@ -159,6 +166,22 @@ public class Appointment implements Serializable {
         } else if (!id.equals(other.id))
             return false;
         return true;
+    }
+
+    public UUID getProfessionalUUID() {
+        return professionalUUID;
+    }
+
+    public void setProfessionalUUID(UUID uuid) {
+        this.professionalUUID = uuid;
+    }
+
+    public UUID getClientUUID() {
+        return clientUUID;
+    }
+
+    public void setClientUUID(UUID clientUUID) {
+        this.clientUUID = clientUUID;
     }
 
    

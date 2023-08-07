@@ -5,7 +5,9 @@ import java.time.LocalTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.abutua.agenda.domain.entities.Appointment;
@@ -21,6 +23,7 @@ import com.abutua.agenda.domain.repositories.ClientRepository;
 import com.abutua.agenda.domain.repositories.ProfessionalRepository;
 import com.abutua.agenda.domain.services.exceptions.BusinessException;
 import com.abutua.agenda.domain.services.usecases.read.SearchProfessionalAvailabiltyTimesUseCase;
+import com.abutua.agenda.domain.util.CreateAppointmentUUID;
 
 import jakarta.persistence.EntityNotFoundException;
 
@@ -46,7 +49,6 @@ public class CreateAppointmentUseCase {
     private SearchProfessionalAvailabiltyTimesUseCase searchProfessionalAvailabiltyTimesUseCase;
 
     public Appointment executeUseCase(Appointment appointment) {
-
         checkAppointmentTypeExistsOrThrowsException(appointment.getAppointmentType());
         checkAreaExistsOrThrowsException(appointment.getArea());
 
@@ -54,20 +56,23 @@ public class CreateAppointmentUseCase {
         checkProfessionalIsActiveOrThrowsException(professional);
         checkAssociationBetweenProfessionalAndAreaOrThrowsException(professional, appointment.getArea());
         checkProfessionalCanCreateAppointmentAtDateAndTimeOrThrowsException(professional, appointment);
-      
+        checkProfessionalHasAvailableScheduleOrThorwsException(professional, appointment);
+
         checkAppointmentIsNowOrFutureOrThrowsException(appointment.getDate(), appointment.getStartTime());
 
         Client client = getClientIfExistsOrThrowsException(appointment.getClient());
-
-        return saveAppointmentAtomically(appointment, professional, client);
-
-    }
-
-    @Transactional
-    private Appointment saveAppointmentAtomically(Appointment appointment, Professional professional, Client client) {
-        checkProfessionalHasAvailableScheduleOrThorwsException(professional, appointment);
         checkClientCanCreateAppointmentAtDateAndTimeOrThrowsException(client, appointment);
-        return this.appointmentRepository.save(appointment);
+
+        // Generate Unique UUID
+        appointment.setProfessionalUUID(CreateAppointmentUUID.generateProfessionalUUID(appointment));
+        appointment.setClientUUID(CreateAppointmentUUID.generateClientUUID(appointment));
+
+        try {
+            return this.appointmentRepository.save(appointment);
+        } catch (DataIntegrityViolationException e) {
+            throw new BusinessException("Conflito ao criar o agendamento. Tente novamente");
+        }
+
     }
 
     private void checkProfessionalHasAvailableScheduleOrThorwsException(Professional professional,
