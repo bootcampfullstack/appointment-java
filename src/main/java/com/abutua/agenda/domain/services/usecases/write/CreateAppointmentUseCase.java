@@ -6,6 +6,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.abutua.agenda.domain.entities.Appointment;
 import com.abutua.agenda.domain.entities.AppointmentType;
@@ -45,6 +47,7 @@ public class CreateAppointmentUseCase {
     private SearchProfessionalAvailabiltyTimesUseCase searchProfessionalAvailabiltyTimesUseCase;
 
 
+    @Transactional
     public Appointment executeUseCase(Appointment appointment) {
 
         checkAppointmentTypeExistsOrThrowsException(appointment.getAppointmentType());
@@ -53,14 +56,21 @@ public class CreateAppointmentUseCase {
         Professional professional = getProfessionalIfExistsOrThrowsException(appointment.getProfessional());
         checkProfessionalIsActiveOrThrowsException(professional);
         checkAssociationBetweenProfessionalAndAreaOrThrowsException(professional, appointment.getArea());
-        checkProfessionalCanCreateAppointmentAtDateAndTimeOrThrowsException(professional, appointment);
+       
         checkProfessionalHasAvailableScheduleOrThorwsException(professional, appointment);
 
         checkAppointmentIsNowOrFutureOrThrowsException(appointment.getDate(), appointment.getStartTime());
 
         Client client = getClientIfExistsOrThrowsException(appointment.getClient());
-        checkClientCanCreateAppointmentAtDateAndTimeOrThrowsException(client, appointment);
+       
+        return save(appointment, client, professional);
+      
+    }
 
+    @Transactional(isolation = Isolation.SERIALIZABLE)
+    private Appointment save(Appointment appointment, Client client, Professional professional){
+        checkProfessionalCanCreateAppointmentAtDateAndTimeOrThrowsException(professional, appointment);
+        checkClientCanCreateAppointmentAtDateAndTimeOrThrowsException(client, appointment);
         return this.appointmentRepository.save(appointment);
     }
 
