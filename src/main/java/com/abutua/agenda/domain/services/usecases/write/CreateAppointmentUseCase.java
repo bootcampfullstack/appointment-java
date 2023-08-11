@@ -2,8 +2,6 @@ package com.abutua.agenda.domain.services.usecases.write;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -14,7 +12,6 @@ import com.abutua.agenda.domain.entities.AppointmentType;
 import com.abutua.agenda.domain.entities.Area;
 import com.abutua.agenda.domain.entities.Client;
 import com.abutua.agenda.domain.entities.Professional;
-import com.abutua.agenda.domain.models.TimeSlot;
 import com.abutua.agenda.domain.repositories.AppointmentRepository;
 import com.abutua.agenda.domain.repositories.AppointmentTypeRepository;
 import com.abutua.agenda.domain.repositories.AreaRepository;
