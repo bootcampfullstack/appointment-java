@@ -18,11 +18,11 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "TBL_APPOINTMENT")
 public class Appointment implements Serializable {
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    
     @Column(columnDefinition = "TIMESTAMP WITH TIME ZONE", nullable = false)
     private LocalDate date;
 
