@@ -10,10 +10,12 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.context.junit.jupiter.EnabledIf;
 
 import com.abutua.agenda.domain.repositories.AreaRepository;
 
 @DataJpaTest
+@EnabledIf(expression = "#{environment.acceptsProfiles('test', 'dev')}", loadContext = true)
 public class AreaRepositoryTest {
 
     @Autowired

@@ -3,8 +3,6 @@ package com.abutua.agenda.unit.domain.services.usecases.write;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
@@ -13,16 +11,14 @@ import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.OffsetTime;
-import java.util.Collections;
 import java.util.List;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.test.context.junit.jupiter.EnabledIf;
 
 import com.abutua.agenda.domain.entities.Appointment;
 import com.abutua.agenda.domain.entities.AppointmentType;
@@ -38,7 +34,6 @@ import com.abutua.agenda.domain.repositories.ProfessionalRepository;
 import com.abutua.agenda.domain.services.exceptions.BusinessException;
 import com.abutua.agenda.domain.services.usecases.read.SearchProfessionalAvailabiltyTimesUseCase;
 import com.abutua.agenda.domain.services.usecases.write.CreateAppointmentUseCase;
-import com.abutua.agenda.dto.ProfessionalResponse;
 import com.abutua.agenda.unit.factory.TimeSlotFactory;
 
 @ExtendWith(MockitoExtension.class)
