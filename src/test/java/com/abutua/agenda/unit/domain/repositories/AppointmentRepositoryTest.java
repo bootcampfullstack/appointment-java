@@ -17,6 +17,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import com.abutua.agenda.domain.entities.Client;
 import com.abutua.agenda.domain.models.TimeSlot;
 import com.abutua.agenda.domain.repositories.AppointmentRepository;
+import com.abutua.agenda.unit.factory.TimeSlotFactory;
 
 @DataJpaTest
 public class AppointmentRepositoryTest {
@@ -251,10 +252,10 @@ public class AppointmentRepositoryTest {
         List<TimeSlot> foundTimes = appointmentRepository.getAvailableTimesFromProfessional(professionalId, date);
 
         List<TimeSlot> expectTimes = List.of(
-            createTimeSlot("08:00:00-03:00","08:30:00-03:00", true),
-            createTimeSlot("08:30:00-03:00","09:00:00-03:00", true),
-            createTimeSlot("09:00:00-03:00","09:30:00-03:00", true),
-            createTimeSlot("09:30:00-03:00","10:00:00-03:00", true)
+            TimeSlotFactory.createTimeSlot("08:00:00-03:00","08:30:00-03:00", true),
+            TimeSlotFactory.createTimeSlot("08:30:00-03:00","09:00:00-03:00", true),
+            TimeSlotFactory.createTimeSlot("09:00:00-03:00","09:30:00-03:00", true),
+            TimeSlotFactory.createTimeSlot("09:30:00-03:00","10:00:00-03:00", true)
         );
         checkTimeSlotsLists(expectTimes, foundTimes);
         
@@ -262,10 +263,10 @@ public class AppointmentRepositoryTest {
         date = LocalDate.of(2024,4,8);
         foundTimes = appointmentRepository.getAvailableTimesFromProfessional(professionalId, date);
         expectTimes = List.of(
-            createTimeSlot("08:00:00-03:00","08:30:00-03:00", false),
-            createTimeSlot("08:30:00-03:00","09:00:00-03:00", false),
-            createTimeSlot("09:00:00-03:00","09:30:00-03:00", false),
-            createTimeSlot("09:30:00-03:00","10:00:00-03:00", false)
+            TimeSlotFactory.createTimeSlot("08:00:00-03:00","08:30:00-03:00", false),
+            TimeSlotFactory.createTimeSlot("08:30:00-03:00","09:00:00-03:00", false),
+            TimeSlotFactory.createTimeSlot("09:00:00-03:00","09:30:00-03:00", false),
+            TimeSlotFactory.createTimeSlot("09:30:00-03:00","10:00:00-03:00", false)
         );
         checkTimeSlotsLists(expectTimes, foundTimes);
 
@@ -273,10 +274,10 @@ public class AppointmentRepositoryTest {
         date = LocalDate.of(2024,4,15);
         foundTimes = appointmentRepository.getAvailableTimesFromProfessional(professionalId, date);
         expectTimes = List.of(
-            createTimeSlot("08:00:00-03:00","08:30:00-03:00", true),
-            createTimeSlot("08:30:00-03:00","09:00:00-03:00", true),
-            createTimeSlot("09:00:00-03:00","09:30:00-03:00", true),
-            createTimeSlot("09:30:00-03:00","10:00:00-03:00", false)
+            TimeSlotFactory.createTimeSlot("08:00:00-03:00","08:30:00-03:00", true),
+            TimeSlotFactory.createTimeSlot("08:30:00-03:00","09:00:00-03:00", true),
+            TimeSlotFactory.createTimeSlot("09:00:00-03:00","09:30:00-03:00", true),
+            TimeSlotFactory.createTimeSlot("09:30:00-03:00","10:00:00-03:00", false)
         );
         checkTimeSlotsLists(expectTimes, foundTimes);
 
@@ -284,14 +285,14 @@ public class AppointmentRepositoryTest {
         date = LocalDate.of(2024,4,5);
         foundTimes = appointmentRepository.getAvailableTimesFromProfessional(professionalId, date);
         expectTimes = List.of(
-            createTimeSlot("08:00:00-03:00","08:30:00-03:00", true),
-            createTimeSlot("08:30:00-03:00","09:00:00-03:00", true),
-            createTimeSlot("09:00:00-03:00","09:30:00-03:00", true),
-            createTimeSlot("09:30:00-03:00","10:00:00-03:00", true),
-            createTimeSlot("10:00:00-03:00","10:30:00-03:00", true),
-            createTimeSlot("10:30:00-03:00","11:00:00-03:00", true),
-            createTimeSlot("11:00:00-03:00","11:30:00-03:00", true),
-            createTimeSlot("11:30:00-03:00","12:00:00-03:00", true)
+            TimeSlotFactory.createTimeSlot("08:00:00-03:00","08:30:00-03:00", true),
+            TimeSlotFactory.createTimeSlot("08:30:00-03:00","09:00:00-03:00", true),
+            TimeSlotFactory.createTimeSlot("09:00:00-03:00","09:30:00-03:00", true),
+            TimeSlotFactory.createTimeSlot("09:30:00-03:00","10:00:00-03:00", true),
+            TimeSlotFactory.createTimeSlot("10:00:00-03:00","10:30:00-03:00", true),
+            TimeSlotFactory.createTimeSlot("10:30:00-03:00","11:00:00-03:00", true),
+            TimeSlotFactory.createTimeSlot("11:00:00-03:00","11:30:00-03:00", true),
+            TimeSlotFactory.createTimeSlot("11:30:00-03:00","12:00:00-03:00", true)
         );
         checkTimeSlotsLists(expectTimes, foundTimes);
 
@@ -299,22 +300,22 @@ public class AppointmentRepositoryTest {
         date = LocalDate.of(2024,4,23);
         foundTimes = appointmentRepository.getAvailableTimesFromProfessional(professionalId, date);
         expectTimes = List.of(
-            createTimeSlot("08:00:00-03:00","08:30:00-03:00", true),
-            createTimeSlot("08:30:00-03:00","09:00:00-03:00", true),
-            createTimeSlot("09:00:00-03:00","09:30:00-03:00", true),
-            createTimeSlot("09:30:00-03:00","10:00:00-03:00", true),
-            createTimeSlot("10:00:00-03:00","10:30:00-03:00", true),
-            createTimeSlot("10:30:00-03:00","11:00:00-03:00", true),
-            createTimeSlot("11:00:00-03:00","11:30:00-03:00", true),
-            createTimeSlot("11:30:00-03:00","12:00:00-03:00", true),
-            createTimeSlot("14:00:00-03:00","14:30:00-03:00", true),
-            createTimeSlot("14:30:00-03:00","15:00:00-03:00", true),
-            createTimeSlot("15:00:00-03:00","15:30:00-03:00", true),
-            createTimeSlot("15:30:00-03:00","16:00:00-03:00", true),
-            createTimeSlot("16:00:00-03:00","16:30:00-03:00", true),
-            createTimeSlot("16:30:00-03:00","17:00:00-03:00", true),
-            createTimeSlot("17:00:00-03:00","17:30:00-03:00", true),
-            createTimeSlot("18:30:00-03:00","18:00:00-03:00", true)
+            TimeSlotFactory.createTimeSlot("08:00:00-03:00","08:30:00-03:00", true),
+            TimeSlotFactory.createTimeSlot("08:30:00-03:00","09:00:00-03:00", true),
+            TimeSlotFactory.createTimeSlot("09:00:00-03:00","09:30:00-03:00", true),
+            TimeSlotFactory.createTimeSlot("09:30:00-03:00","10:00:00-03:00", true),
+            TimeSlotFactory.createTimeSlot("10:00:00-03:00","10:30:00-03:00", true),
+            TimeSlotFactory.createTimeSlot("10:30:00-03:00","11:00:00-03:00", true),
+            TimeSlotFactory.createTimeSlot("11:00:00-03:00","11:30:00-03:00", true),
+            TimeSlotFactory.createTimeSlot("11:30:00-03:00","12:00:00-03:00", true),
+            TimeSlotFactory.createTimeSlot("14:00:00-03:00","14:30:00-03:00", true),
+            TimeSlotFactory.createTimeSlot("14:30:00-03:00","15:00:00-03:00", true),
+            TimeSlotFactory.createTimeSlot("15:00:00-03:00","15:30:00-03:00", true),
+            TimeSlotFactory.createTimeSlot("15:30:00-03:00","16:00:00-03:00", true),
+            TimeSlotFactory.createTimeSlot("16:00:00-03:00","16:30:00-03:00", true),
+            TimeSlotFactory.createTimeSlot("16:30:00-03:00","17:00:00-03:00", true),
+            TimeSlotFactory.createTimeSlot("17:00:00-03:00","17:30:00-03:00", true),
+            TimeSlotFactory.createTimeSlot("18:30:00-03:00","18:00:00-03:00", true)
         );
         checkTimeSlotsLists(expectTimes, foundTimes);
     }
@@ -333,23 +334,5 @@ public class AppointmentRepositoryTest {
         }
     }
 
-    private TimeSlot createTimeSlot(String startTime, String endTime, boolean available){
-        return new TimeSlot() {
-
-            @Override
-            public OffsetTime getStartTime() {
-              return OffsetTime.parse(startTime);
-            }
-
-            @Override
-            public OffsetTime getEndTime() {
-                return OffsetTime.parse(endTime);
-            }
-
-            @Override
-            public boolean isAvailable() {
-                return available;
-            }
-        };
-    }
+   
 }
