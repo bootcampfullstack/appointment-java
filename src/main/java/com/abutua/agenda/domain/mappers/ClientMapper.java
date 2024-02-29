@@ -12,13 +12,17 @@ public class ClientMapper {
                 client.getId(),
                 client.getName(),
                 client.getPhone(),
-                client.getDateOfBirth());
+                client.getDateOfBirth(),
+                client.getComments()
+                );
     }
 
     public static Client fromClientRequestDTO(ClientRequest clientRequest) {
         return new Client(
                 clientRequest.name(),
                 clientRequest.phone(),
-                clientRequest.dateOfBirth());
+                clientRequest.dateOfBirth(),
+                clientRequest.comments()
+                );
     }
 }
