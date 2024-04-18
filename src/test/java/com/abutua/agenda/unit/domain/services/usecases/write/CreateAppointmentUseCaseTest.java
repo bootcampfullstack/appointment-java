@@ -101,7 +101,7 @@ public class CreateAppointmentUseCaseTest {
 
         Appointment appointment = new Appointment();
         appointment.setId(1l);
-        appointment.setDate(LocalDate.of(2024,4,8));
+        appointment.setDate(LocalDate.now().plusDays(1));
         appointment.setStartTime(LocalTime.parse("08:00:00"));
         appointment.setEndTime(LocalTime.parse("08:30:00"));
         appointment.setComments("No comments");
@@ -226,7 +226,7 @@ public class CreateAppointmentUseCaseTest {
 
          Appointment appointment = new Appointment();
          appointment.setId(1l);
-         appointment.setDate(LocalDate.of(2024,4,8));
+         appointment.setDate(LocalDate.now().plusDays(1));
          appointment.setStartTime(LocalTime.parse("08:00:00"));
          appointment.setEndTime(LocalTime.parse("08:30:00"));
          appointment.setComments("No comments");
