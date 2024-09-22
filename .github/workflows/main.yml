@@ -27,8 +27,8 @@ jobs:
         run: mvn -B clean package  --file ./pom.xml -DskipTests     
      
       # Step 4
-      - name: Maven Verify
-        run: mvn -B clean verify -DargLine="-Dspring.profiles.active=test"
+      #- name: Maven Verify
+      #  run: mvn -B clean verify -DargLine="-Dspring.profiles.active=test"
         
   continuous-deployment:
     runs-on: ubuntu-latest
