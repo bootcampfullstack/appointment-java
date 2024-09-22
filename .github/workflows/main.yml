@@ -10,14 +10,8 @@ jobs:
       # Step 1
       - uses: actions/checkout@v2
 
-      - name: Set timezone to São Paulo
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y tzdata
-          echo "America/Sao_Paulo" | sudo tee /etc/timezone
-          sudo dpkg-reconfigure -f noninteractive tzdata
-          date # Verifique se a timezone foi definida corretamente
-
+  
+  
       # Step 2
       - name: Set up JDK 17
         uses: actions/setup-java@v2
@@ -30,7 +24,13 @@ jobs:
      
       # Step 4
       - name: Maven Verify
-        run: mvn -B clean verify -DargLine="-Dspring.profiles.active=test"
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y tzdata
+          echo "America/Sao_Paulo" | sudo tee /etc/timezone
+          sudo dpkg-reconfigure -f noninteractive tzdata
+          date # Verifique se a timezone foi definida corretamente
+          mvn -B clean verify -DargLine="-Dspring.profiles.active=test"
         
   continuous-deployment:
     runs-on: ubuntu-latest
