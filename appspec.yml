@@ -3,3 +3,12 @@ os: linux
 files:
   - source: .
     destination: /home/ec2-user/agenda/
+hooks:
+  AfterInstall:
+   - location: setup.sh
+     timeout: 600
+     runas: root
+  ApplicationStart:
+   - location: run.sh
+     timeout: 600
+     runas: root
