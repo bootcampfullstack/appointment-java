@@ -28,10 +28,7 @@ jobs:
      
       # Step 4
       - name: Maven Verify
-        run: | 
-           echo "America/Sao_Paulo" | sudo tee /etc/timezone
-           sudo dpkg-reconfigure -f noninteractive tzdata
-           mvn -B clean verify -DargLine="-Dspring.profiles.active=test"
+        run: mvn -B clean verify -DargLine="-Dspring.profiles.active=test -Duser.timezone=America/Sao_Paulo"
         
   continuous-deployment:
     runs-on: ubuntu-latest
