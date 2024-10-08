@@ -24,7 +24,7 @@ jobs:
           distribution: 'adopt'
       # Step 3
       - name: Maven Package
-        run: mvn -B clean package  --file ./pom.xml -DskipTests     
+        run: mvn -B clean package  --file ./pom.xml -DargLine="-Dspring.profiles.active=test
      
       # Step 4
       #- name: Maven Verify
