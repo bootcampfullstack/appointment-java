@@ -11,7 +11,7 @@ public class Hello {
 
     @GetMapping("hello")
     public String getMethodName() {
-        return "V2.0";
+        return "V3.0";
     }
     
     
