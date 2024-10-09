@@ -16,7 +16,7 @@ public class CorsConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry){
                 registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:4200", "https://api.bootcampdevjr.duckdns.org")
+                        .allowedOrigins("http://localhost:4200", "https://develop.d39f9mrmapoqe0.amplifyapp.com")
                         .allowedMethods("*");
             }
 
