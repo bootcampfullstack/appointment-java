@@ -6,7 +6,9 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 COPY . /home/app/bchbackend
 RUN mvn -v
-RUN mvn -f /home/app/bchbackend/pom.xml clean package
+RUN mvn -f /home/app/bchbackend/pom.xml clean
+RUN mvn -f /home/app/bchbackend/pom.xml test 
+RUN mvn -f /home/app/bchbackend/pom.xml package -DskipTests
 
 # Etapa de execução
 FROM openjdk:17-slim
