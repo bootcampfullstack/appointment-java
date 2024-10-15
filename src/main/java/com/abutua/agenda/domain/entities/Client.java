@@ -16,6 +16,8 @@ public class Client extends Person {
     
     private LocalDate dateOfBirth;
 
+    private String comments;
+
     @OneToMany(mappedBy = "client")
     private List<Appointment> appointments = new ArrayList<>();
 
@@ -24,6 +26,18 @@ public class Client extends Person {
     public Client(String name, String phone, LocalDate dateOfBirth) {
         super(name, phone);
         this.dateOfBirth = dateOfBirth;
+    }
+
+    public Client(String name, String phone, LocalDate dateOfBirth, String comments) {
+        super(name, phone);
+        this.dateOfBirth = dateOfBirth;
+        this.comments = comments;
+    }
+
+    public Client(Long id,String name, String phone, LocalDate dateOfBirth, String comments) {
+        super(id,name, phone);
+        this.dateOfBirth = dateOfBirth;
+        this.comments = comments;
     }
 
     public Client(Long id) {
@@ -47,10 +61,17 @@ public class Client extends Person {
     }
 
  
-    @Override
-    public String toString() {
-        return  " Client [dateOfBirth=" + dateOfBirth + " " +  super.toString() + "]";
+    public String getComments() {
+        return comments;
     }
 
-    
+    public void setComments(String comments) {
+        this.comments = comments;
+    }
+
+    @Override
+    public String toString() {
+        return "Client [dateOfBirth=" + dateOfBirth + ", comments=" + comments + ", appointments=" + appointments + "]";
+    }
+
 }

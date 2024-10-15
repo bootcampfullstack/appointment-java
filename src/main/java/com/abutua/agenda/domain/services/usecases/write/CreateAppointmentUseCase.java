@@ -86,6 +86,11 @@ public class CreateAppointmentUseCase {
             if(timeSlot.isEmpty()){
                 throw new BusinessException("O professional não trabalha no horário selecionado.");
             }
+            
+            if(!timeSlot.get().isAvailable()){
+                throw new BusinessException("O professional não tem disponibilidade para o horário selecionado.");
+            }
+            
        }
     }
 
