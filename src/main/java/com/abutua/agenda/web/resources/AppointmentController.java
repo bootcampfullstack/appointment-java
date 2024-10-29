@@ -1,6 +1,5 @@
 package com.abutua.agenda.web.resources;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,8 +16,11 @@ import com.abutua.agenda.dto.AppointmentResponse;
 @RequestMapping("appointments")
 public class AppointmentController {
 
-    @Autowired
     private AppointmentService appointmentService;
+
+    public AppointmentController(AppointmentService appointmentService){
+        this.appointmentService = appointmentService;
+    }
 
     @PostMapping
     public ResponseEntity<AppointmentResponse> createAppointment(@Validated @RequestBody AppointmentRequest appointmentRequest) {

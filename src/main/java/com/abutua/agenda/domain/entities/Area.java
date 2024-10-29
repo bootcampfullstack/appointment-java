@@ -20,6 +20,8 @@ import jakarta.persistence.Table;
 @Table(name = "TBL_AREA")
 public class Area implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -28,7 +30,7 @@ public class Area implements Serializable {
 
     @ManyToMany
     @JoinTable(name = "TBL_AREA_PROFESSIONAL", joinColumns = @JoinColumn(name = "AREA_ID"), inverseJoinColumns = @JoinColumn(name = "PROFESSIONAL_ID"))
-    private Set<Professional> professionals = new HashSet<Professional>();
+    private Set<Professional> professionals = new HashSet<>();
 
     @OneToMany(mappedBy = "area")
     private List<Appointment> appointments = new ArrayList<>();

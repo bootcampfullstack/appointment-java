@@ -226,7 +226,7 @@ public interface AppointmentRepositoryPostgre extends AppointmentRepository{
     "         ON "+ 
     "         a.professional_id = :professionalId                        AND "+ 
     "         a.date = DATE(:date)                                       AND "+ 
-    "         a.start_time < _start_time_plus_inc                   	 AND "+ 
+    "         a.start_time < _start_time_plus_inc                        AND "+ 
     "         a.end_time >  _start_time                                  AND "+ 
     "         (a.status = 'OPEN' OR a.status = 'PRESENT' ) "+ 
     "         ORDER BY startTime "

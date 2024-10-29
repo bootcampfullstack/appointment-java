@@ -19,6 +19,8 @@ import jakarta.persistence.Table;
 @Table(name = "TBL_WORK_SCHEDULE_ITEM")
 public class WorkScheduleItem {
 
+    private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

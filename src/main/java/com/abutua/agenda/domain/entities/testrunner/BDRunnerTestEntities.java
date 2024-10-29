@@ -1,7 +1,6 @@
 package com.abutua.agenda.domain.entities.testrunner;
 
 import java.time.DayOfWeek;
-import java.time.LocalDate;
 import java.time.LocalTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,11 +9,6 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
-import com.abutua.agenda.domain.entities.Appointment;
-import com.abutua.agenda.domain.entities.AppointmentType;
-import com.abutua.agenda.domain.entities.Area;
-import com.abutua.agenda.domain.entities.Client;
-import com.abutua.agenda.domain.entities.Professional;
 import com.abutua.agenda.domain.entities.WorkScheduleItem;
 import com.abutua.agenda.domain.repositories.AppointmentRepository;
 import com.abutua.agenda.domain.repositories.AppointmentTypeRepository;
@@ -28,23 +22,28 @@ import com.abutua.agenda.domain.repositories.WorkScheduleItemRepository;
 @Profile("runner")
 public class BDRunnerTestEntities implements ApplicationRunner{
     
-    @Autowired
     private ClientRepository clientRepository;
-
-    @Autowired
     private ProfessionalRepository professionalRepository;
-
-    @Autowired
     private AreaRepository areaRepository;
- 
-    @Autowired
     private AppointmentTypeRepository appointmentTypeRepository;
-
-    @Autowired
     private AppointmentRepository appointmentRepository;
-
-    @Autowired
     private WorkScheduleItemRepository workScheduleItemRepository;
+
+    public BDRunnerTestEntities(ClientRepository clientRepository,
+                                ProfessionalRepository professionalRepository,
+                                AreaRepository areaRepository,
+                                AppointmentTypeRepository appointmentTypeRepository,
+                                AppointmentRepository appointmentRepository,
+                                WorkScheduleItemRepository workScheduleItemRepository        
+    ){
+        this.clientRepository = clientRepository;
+        this.professionalRepository = professionalRepository;
+        this.areaRepository = areaRepository;
+        this.appointmentTypeRepository = appointmentTypeRepository;
+        this.appointmentRepository = appointmentRepository;
+        this.workScheduleItemRepository = workScheduleItemRepository;
+    
+    }
 
     @Override
     public void run(ApplicationArguments args) throws Exception {

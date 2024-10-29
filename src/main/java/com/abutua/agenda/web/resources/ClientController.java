@@ -1,6 +1,6 @@
 package com.abutua.agenda.web.resources;
 
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -23,8 +23,12 @@ import com.abutua.agenda.dto.ClientResponse;
 @RequestMapping("clients")
 public class ClientController {
 
-    @Autowired
+    
     private ClientService clientService;
+
+    public ClientController(ClientService clientService){
+        this.clientService = clientService;
+    }
 
     @GetMapping
     public ResponseEntity<Page<ClientResponse>> getClients(

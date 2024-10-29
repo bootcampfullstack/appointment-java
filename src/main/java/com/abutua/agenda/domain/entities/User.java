@@ -16,6 +16,8 @@ import jakarta.persistence.Table;
 @PrimaryKeyJoinColumn(name = "PERSON_ID")
 public class User extends Person{
 
+    private static final long serialVersionUID = 1L;
+    
     @Column(nullable = false, unique = true)
     private String email;
 

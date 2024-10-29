@@ -2,7 +2,7 @@ package com.abutua.agenda.web.resources;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,8 +16,11 @@ import com.abutua.agenda.dto.ProfessionalResponse;
 @RequestMapping("areas")
 public class AreaController {
 
-    @Autowired
     private AreaService areaService;
+
+    public AreaController(AreaService areaService){
+        this.areaService = areaService;
+    }
 
     @GetMapping
     public ResponseEntity<List<AreaResponse>> getAreas(){

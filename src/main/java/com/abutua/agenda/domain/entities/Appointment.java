@@ -19,6 +19,9 @@ import jakarta.persistence.Table;
 @Table(name = "TBL_APPOINTMENT")
 public class Appointment implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

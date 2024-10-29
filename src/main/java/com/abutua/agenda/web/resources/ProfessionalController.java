@@ -3,7 +3,6 @@ package com.abutua.agenda.web.resources;
 import java.time.LocalDate;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,8 +24,13 @@ import jakarta.validation.constraints.Pattern;
 @Validated
 public class ProfessionalController {
 
-    @Autowired
+    
     private ProfessionalService professionalService;
+
+    public ProfessionalController(ProfessionalService professionalService){
+        this.professionalService = professionalService;
+
+    }
 
     @GetMapping("{id}/availability-times")
     public ResponseEntity<List<TimeSlotResponse>> getAvailabilityTimes( @PathVariable long id,
